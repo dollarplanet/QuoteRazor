@@ -1,10 +1,143 @@
 ﻿@page
 @model IndexModel
 @{
-    ViewData["Title"] = "Home page";
+    ViewData["Title"] = "Renungan Gurun Sunyi";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div class="q-shell">
+    <h1 class="sr-only">Kutipan Gurun Sunyi</h1>
+
+    <header class="q-hero">
+        <picture>
+            <source srcset="~/images/desert-sunset.webp" type="image/webp" />
+            <img class="q-hero__img"
+                 src="~/images/desert-sunset.jpg"
+                 width="768" height="1376"
+                 alt="Lanskap gurun gersang dengan pohon kering berkelok saat matahari terbit"
+                 fetchpriority="high" />
+        </picture>
+        <span class="q-hero__veil" aria-hidden="true"></span>
+
+        <div class="q-hero__top">
+            <span class="q-chip">
+                <span class="material-symbols-outlined" aria-hidden="true">wb_sunny</span>
+                <span>Sossusvlei • 24.7275° S</span>
+            </span>
+
+            <button type="button" class="q-chip q-chip--button" id="ambient-toggle"
+                    aria-pressed="false" aria-label="Aktifkan suara angin gurun">
+                <span class="material-symbols-outlined" id="wind-icon" aria-hidden="true">air</span>
+                <span id="wind-label">Angin Sunyi</span>
+            </button>
+        </div>
+
+        <div class="q-hero__monogram" aria-hidden="true">
+            <span class="material-symbols-outlined">nature</span>
+        </div>
+    </header>
+
+    <main class="q-content">
+        <section class="q-quote-card" aria-label="Kutipan pilihan">
+            <span class="q-quote-card__watermark material-symbols-outlined" aria-hidden="true">eco</span>
+
+            <div class="q-quote-card__head">
+                <div class="q-kicker">
+                    <span class="material-symbols-outlined" aria-hidden="true">format_quote</span>
+                    <span class="q-kicker__text">Wacana Keheningan</span>
+                </div>
+                <span class="q-counter" id="quote-counter" aria-label="Kutipan ke-1 dari @Model.QuoteCount">
+                    @($"{1:00} / {Model.QuoteCount:00}")
+                </span>
+            </div>
+
+            <blockquote class="q-quote-card__body" id="quote-wrapper">
+                <p class="q-quote-text" id="quote-text" aria-live="polite">
+                    &ldquo;@Model.CurrentQuote.Text&rdquo;
+                </p>
+
+                <footer class="q-attribution">
+                    <div>
+                        <p class="q-author" id="quote-author">@Model.CurrentQuote.Author</p>
+                        <p class="q-context" id="quote-context">@Model.CurrentQuote.Context</p>
+                    </div>
+
+                    <button type="button" class="q-favorite" id="favorite-btn"
+                            aria-pressed="false" aria-label="Simpan kutipan ke favorit">
+                        <span class="material-symbols-outlined" id="favorite-icon" aria-hidden="true">favorite_border</span>
+                    </button>
+                </footer>
+            </blockquote>
+
+            <div class="q-quote-card__actions">
+                <button type="button" class="q-action" id="copy-quote-btn">
+                    <span class="material-symbols-outlined" id="copy-icon" aria-hidden="true">content_copy</span>
+                    <span id="copy-text">Salin Kutipan</span>
+                </button>
+                <button type="button" class="q-action" id="share-btn">
+                    <span class="material-symbols-outlined" aria-hidden="true">share</span>
+                    <span>Bagikan</span>
+                </button>
+            </div>
+        </section>
+
+        <div class="q-next">
+            <button type="button" class="q-next__btn" id="next-quote-btn"
+                    aria-label="Tampilkan kutipan berikutnya">
+                <span class="material-symbols-outlined" id="refresh-icon" aria-hidden="true">autorenew</span>
+            </button>
+            <p class="q-next__hint">Ketuk untuk membuka lembar perenungan gurun berikutnya</p>
+        </div>
+
+        <section class="q-note" aria-labelledby="note-title">
+            <div class="q-note__icon" aria-hidden="true">
+                <span class="material-symbols-outlined">spa</span>
+            </div>
+            <div>
+                <h2 class="q-note__title" id="note-title">Pohon Kering &amp; Semak Berduri</h2>
+                <p class="q-note__text">
+                    Di tanah yang retak dan kering kerontang, akar menembus jauh ke dalam batuan purba.
+                    Ketabahan bukan tentang seberapa subur tempatmu berpijak, melainkan seberapa kokoh
+                    akarmu mencengkeram harapan.
+                </p>
+            </div>
+        </section>
+
+        <div class="q-stats">
+            <article class="q-stat">
+                <p class="q-stat__label">
+                    <span class="material-symbols-outlined" aria-hidden="true">filter_drama</span>
+                    <span>Hawa Panas</span>
+                </p>
+                <p class="q-stat__value">41°C</p>
+                <p class="q-stat__desc">Puncak terik di hamparan pasir merah</p>
+            </article>
+
+            <article class="q-stat">
+                <p class="q-stat__label">
+                    <span class="material-symbols-outlined" aria-hidden="true">hourglass_empty</span>
+                    <span>Keheningan</span>
+                </p>
+                <p class="q-stat__value">&infin; Detik</p>
+                <p class="q-stat__desc">Waktu membeku di bawah langit biru</p>
+            </article>
+        </div>
+
+        <section class="q-reflection" aria-labelledby="reflection-title">
+            <div class="q-reflection__head">
+                <h2 class="q-reflection__kicker" id="reflection-title">Refleksi Hening</h2>
+                <span class="material-symbols-outlined" aria-hidden="true">grain</span>
+            </div>
+            <blockquote class="q-reflection__quote">
+                &ldquo;Di padang pasir sunyi, angin mengikis segala kepalsuan, menyisakan hanya hakikat diri yang sejati.&rdquo;
+            </blockquote>
+            <p class="q-reflection__by">&mdash; Filosofi Sahara</p>
+        </section>
+    </main>
+
+    <div class="q-toast" id="toast" role="status" aria-live="polite">
+        <span class="material-symbols-outlined" id="toast-icon" aria-hidden="true">check_circle</span>
+        <span id="toast-message">Kutipan disalin ke clipboard!</span>
+    </div>
 </div>
+
+<script type="application/json" id="quote-data">@Html.Raw(Model.QuotesJson)</script>
