@@ -99,8 +99,12 @@
 
     async function copyText(value) {
         if (navigator.clipboard && navigator.clipboard.writeText) {
-            await navigator.clipboard.writeText(value);
-            return;
+            try {
+                await navigator.clipboard.writeText(value);
+                return;
+            } catch {
+                /* izin ditolak — lanjut ke fallback */
+            }
         }
 
         const area = document.createElement("textarea");
@@ -110,8 +114,13 @@
         area.style.opacity = "0";
         document.body.appendChild(area);
         area.select();
-        document.execCommand("copy");
+
+        const copied = document.execCommand("copy");
         document.body.removeChild(area);
+
+        if (!copied) {
+            throw new Error("copy-failed");
+        }
     }
 
     el.nextBtn?.addEventListener("click", nextQuote);
